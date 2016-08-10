@@ -1,0 +1,17 @@
+.reorderable {
+  padding: 0.1px;
+  width: 200px;
+  position: relative;
+}
+.reorder {
+  /* it seems vender prefixes are still necessary */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  padding: 10px;
+  background-color: rgba(128, 128, 255, 0.5);
+  width: 100%;
+  margin-bottom: 5px;
+}
