@@ -1,0 +1,10 @@
+#sortable > div {
+  background-color: lightgrey;
+  margin: 10px;
+  padding: 10px;
+}
+span.handle {
+  background-color: white;
+  padding: 5px;
+  cursor: pointer;
+}
