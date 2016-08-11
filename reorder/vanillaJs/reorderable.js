@@ -47,6 +47,9 @@ var Reorderable = function(container, values) {
       reorderable.item(nearest+1).style.marginTop = todrag.clientHeight + 4 + "px";
     else if(nearest >= 0 && nearest < reorderable.length)
       reorderable.item(nearest).style.marginTop = todrag.clientHeight + 4 + "px";
+    
+    console.log(nearest);
+    
   });
 
   // add event listeners to every resizable element
@@ -64,7 +67,7 @@ var Reorderable = function(container, values) {
         this.classList.add("dragged");
         todrag = this;
         if(this.nextElementSibling)
-          this.nextElementSibling.style.marginTop = todrag.clientHeight + 4 + "px";
+          this.nextElementSibling.style.marginTop = todrag.clientHeight + (this == reorderable.item(0) ? 2 : 4) + "px";
 
       // if stopping drag, set position if necessary
       } else {
@@ -75,7 +78,7 @@ var Reorderable = function(container, values) {
         var nearest = getNearest();
 
         // move element if necessary
-        if(nearest != reorderableArr.indexOf(this))
+        if(nearest != Array.from(reorderable).indexOf(this))
           container.insertBefore(this, reorderable.item(nearest));
 
         // reset todrag
