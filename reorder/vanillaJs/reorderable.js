@@ -44,9 +44,9 @@ var Reorderable = function(container, values) {
 
     // set margin to appropriate elements
     if(reorderable.item(nearest) == todrag && reorderableArr.indexOf(todrag) != reorderable.length-1)
-      reorderable.item(nearest+1).style.marginTop = todrag.clientHeight + 4 + "px";
+      reorderable.item(nearest+1).style.marginTop = todrag.clientHeight + "px";
     else if(nearest >= 0 && nearest < reorderable.length)
-      reorderable.item(nearest).style.marginTop = todrag.clientHeight + 4 + "px";
+      reorderable.item(nearest).style.marginTop = todrag.clientHeight + "px";
     
     console.log(nearest);
     
@@ -67,7 +67,7 @@ var Reorderable = function(container, values) {
         this.classList.add("dragged");
         todrag = this;
         if(this.nextElementSibling)
-          this.nextElementSibling.style.marginTop = todrag.clientHeight + (this == reorderable.item(0) ? 2 : 4) + "px";
+          this.nextElementSibling.style.marginTop = todrag.clientHeight + "px";
 
       // if stopping drag, set position if necessary
       } else {
@@ -106,23 +106,20 @@ var Reorderable = function(container, values) {
   // public instance method lock(). Locks element by hiding .handle elements
   this.lock = function() {
     if(locked) return;
-    for(handle of Array.from(document.getElementsByClassName("handle")))
-      handle.classList.add("locked");
+    container.classList.add("locked");
     locked = true;
   };
 
   // public instance method unlock(). Unlocks element by showing .handle elements
   this.unlock = function() {
     if(!locked) return;
-    for(handle of Array.from(document.getElementsByClassName("handle")))
-      handle.classList.remove("locked");
+    container.classList.remove("locked");
     locked = false;
   };
 
   // public instance method lockToggle(). Toggles visibility of .handle elements
   this.lockToggle = function() {
-    for(handle of Array.from(document.getElementsByClassName("handle")))
-      handle.classList.toggle("locked");
+    container.classList.toggle("locked");
     locked = !locked;
   };
 
