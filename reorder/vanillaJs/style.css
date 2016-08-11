@@ -1,17 +1,42 @@
+/* use this class for reorderable containers */
 .reorderable {
-  padding: 0.1px;
-  width: 200px;
+  padding: 10px;
+  width: 500px;
+  position: relative;
+  border-radius: 3px;
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.2);
+  margin: 20px 0;
+}
+/* the following styles reorderable elements */
+.reorderable > div {
+  box-sizing: border-box;
+  padding: 10px 10px 10px 50px;
+  background-color: rgba(128, 128, 255, 0.5);
+  width: 100%;
+  margin-bottom: 2px;
   position: relative;
 }
-.reorder {
-  /* it seems vender prefixes are still necessary */
+.reorderable > div > .handle {
+  /* disable user select: it seems vender prefixes are still necessary */
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   cursor: pointer;
-  padding: 10px;
-  background-color: rgba(128, 128, 255, 0.5);
-  width: 100%;
-  margin-bottom: 5px;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  line-height: calc(1em + 20px);
+  width: 40px;
+  text-align: center;
+  background-color: white;
+}
+.reorderable > div > .handle.locked {
+  display: none;
+}
+.reorderable > div > .handle::before {
+  content: "\f07d";
+  font-family: fontawesome;
 }

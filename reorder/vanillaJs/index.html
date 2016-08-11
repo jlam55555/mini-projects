@@ -3,21 +3,54 @@
   <head>
     <title>VanillaJS Implementation of Reorder</title>
     <link rel="stylesheet" href="style.css">
+    <!-- code for reorderable elements -->
+    <script src="reorderable.js"></script>
+    <!-- FontAwesome CDN -->
+    <script src="https://use.fontawesome.com/a46f002d02.js"></script>
   </head>
   <body>
     <h1><code>reorder</code> Attempt 2: VanillaJS implementation</h1>
+    <p>See code for more details.</p>
+    <hr>
+    <p>Rank your favorite ice cream flavors:</p>
     <div class="reorderable" id="list">
-      <div class="reorder" id="elem1">Element 1</div>
-      <div class="reorder" id="elem2">Element 2</div>
-      <div class="reorder" id="elem3">Element 3</div>
-      <div class="reorder" id="elem4">Element 4</div>
-      <div class="reorder" id="elem5">Element 5</div>
-      <div class="reorder" id="elem6">Element 6</div>
-      <div class="reorder" id="elem7">Element 7</div>
-      <div class="reorder" id="elem8">Element 8</div>
-      <div class="reorder" id="elem9">Element 9</div>
-      <div class="reorder" id="elem10">Element 10</div>
+      <div>Chocolate</div>
+      <div>Vanilla</div>
+      <div>Strawberry</div>
+      <div>Caramel</div>
+      <div>Blueberry</div>
+      <div>Cookies and Dough</div>
+      <div>Cotton Candy</div>
+      <div>Rocky Road</div>
+      <div>Coconut</div>
+      <div>Pistaschio</div>
     </div>
-    <script src="script.js"></script>
+    <button id="getOutput">Output flavors to JS:</button>
+    <button id="lock">Lock list</button>
+    <button id="unlock">Unlock list</button>
+    <button id="lockToggle">Toggle lock</button>
+    <br>
+    <code id="output"></code>
+    <script>
+      // this makes the list draggable
+      var list = new Reorderable(document.getElementById("list"));
+      
+      // get output using .toArray() -- returns a JS list
+      document.getElementById("getOutput").addEventListener("click", function() {
+        document.getElementById("output").textContent = list.toArray();
+      });
+      document.getElementById("getOutput").dispatchEvent(new Event("click"));
+
+      // lock functions
+      document.getElementById("lock").addEventListener("click", function() {
+        list.lock();
+      });
+      document.getElementById("unlock").addEventListener("click", function() {
+        list.unlock();
+      });
+      document.getElementById("lockToggle").addEventListener("click", function() {
+        list.lockToggle();
+      });
+    </script>
   </body>
 </html>
