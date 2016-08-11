@@ -15,7 +15,9 @@ var Reorderable = function(container) {
     var nearest = getNearest(); 
     for(elem of reorderableArr)
       elem.style.marginTop = "0";
-    if(nearest >= 0 && nearest < reorderable.length)
+    if(reorderable.item(nearest) == todrag)
+      reorderable.item(nearest+1).style.marginTop = todrag.clientHeight + 10 + "px";
+    else if(nearest >= 0 && nearest < reorderable.length)
       reorderable.item(nearest).style.marginTop = todrag.clientHeight + 10 + "px";
   });
   for(elem of reorderableArr) {
@@ -24,9 +26,11 @@ var Reorderable = function(container) {
       if(!todrag) {
         this.style.position = "absolute";
         todrag = this;
-        document.dispatchEvent(new Event("mousemove"));
+        if(this.nextSibling)
+          this.nextElementSibling.style.marginTop = todrag.clientHeight + 10 + "px";
       } else {
         this.style.position = "static";
+        this.style.top = "auto";
         todrag = null;
         var nearest = getNearest();
         console.log(reorderable.item(nearest).textContent, reorderable.item(nearest).style.marginTop);
