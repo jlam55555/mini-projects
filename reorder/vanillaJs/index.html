@@ -10,30 +10,23 @@
   </head>
   <body>
     <h1><code>reorder</code> Attempt 2: VanillaJS implementation</h1>
-    <p>See code for more details.</p>
+    <p>Click to start "drag", click again to end it. Written from scratch in VanillaJS. Requires FontAwesome (icon). See code for more details.</p>
     <hr>
     <p>Rank your favorite ice cream flavors:</p>
-    <div class="reorderable" id="list">
-      <div>Chocolate</div>
-      <div>Vanilla</div>
-      <div>Strawberry</div>
-      <div>Caramel</div>
-      <div>Blueberry</div>
-      <div>Cookies and Dough</div>
-      <div>Cotton Candy</div>
-      <div>Rocky Road</div>
-      <div>Coconut</div>
-      <div>Pistaschio</div>
-    </div>
-    <button id="getOutput">Output flavors to JS:</button>
-    <button id="lock">Lock list</button>
-    <button id="unlock">Unlock list</button>
-    <button id="lockToggle">Toggle lock</button>
+    <div class="reorderable" id="list"></div>
+    <button id="getOutput">list.toArray()</button>
+    <button id="lock">list.lock()</button>
+    <button id="unlock">list.unlock()</button>
+    <button id="lockToggle">list.lockToggle()</button>
     <br>
     <code id="output"></code>
     <script>
       // this makes the list draggable
-      var list = new Reorderable(document.getElementById("list"));
+      var list = new Reorderable(
+        document.getElementById("list"),
+        ["Chocolate", "Vanilla", "Strawberry", "Caramel", "Blueberry", "Cookies and Dough", "Cotton Candy", "Rocky Road", "Coconut", "Pistaschio"]
+      );
+      // the above uses automatic population; you can instead input the HTML list yourself and leave out the values array
       
       // get output using .toArray() -- returns a JS list
       document.getElementById("getOutput").addEventListener("click", function() {

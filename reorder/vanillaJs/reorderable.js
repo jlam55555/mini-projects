@@ -1,5 +1,9 @@
-// Reorderable constructor: just supply parent element
-var Reorderable = function(container) {
+// Reorderable constructor: just supply parent element; values array optional
+var Reorderable = function(container, values) {
+
+  // populate with values if valid
+  if(values)
+    container.innerHTML = "<div>" + values.join("</div><div>") + "</div>";
 
   // reorderable children as HTMLElementList and as array; HTMLElementList remains ordered, array does not
   var reorderable = container.children;
@@ -54,7 +58,7 @@ var Reorderable = function(container) {
 
       // if newly dragged, set styles
       if(!todrag) {
-        this.style.position = "absolute";
+        this.classList.add("dragged");
         todrag = this;
         if(this.nextElementSibling)
           this.nextElementSibling.style.marginTop = todrag.clientHeight + 4 + "px";
@@ -73,7 +77,7 @@ var Reorderable = function(container) {
 
         // reset todrag
         todrag = null;
-        this.style.position = "relative";
+        this.classList.remove("dragged");
         this.style.top = "auto";
       }
     });
