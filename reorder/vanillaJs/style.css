@@ -8,6 +8,14 @@
 }
 /* the following styles reorderable elements */
 .reorderable > div {
+  /*
+    disable user select: selecting and moving up and down rows is annoying
+    it seems vender prefixes are still necessary
+  */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   box-sizing: border-box;
   padding: 10px 10px 10px 50px;
   margin: 0;
@@ -32,11 +40,6 @@
   content: "\f255";
 }
 .reorderable > div > .handle {
-  /* disable user select: it seems vender prefixes are still necessary */
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
   cursor: pointer;
   display: inline-block;
   position: absolute;

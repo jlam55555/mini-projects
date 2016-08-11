@@ -16,8 +16,9 @@ var Reorderable = function(container, values) {
   var locked = false;
 
   // gets nearest element (finds mouse percentage of total height and multiplies it by the number of elements
+  var y = 0;
   var getNearest = function() {
-    return Math.round((event.pageY - container.offsetTop) / container.clientHeight * reorderable.length);
+    return Math.round((y - container.offsetTop) / container.clientHeight * reorderable.length);
   };
 
   // gets Y coordinate in the reorderable box -- deals with cases of mouse over the top or under bottom
@@ -40,15 +41,14 @@ var Reorderable = function(container, values) {
       elem.style.marginTop = "0";
 
     // get nearest
+    y = event.pageY;
     var nearest = getNearest(); 
 
     // set margin to appropriate elements
-    if(reorderable.item(nearest) == todrag && reorderableArr.indexOf(todrag) != reorderable.length-1)
+    if(reorderable.item(nearest) == todrag && Array.from(reorderable).indexOf(todrag) != reorderable.length-1)
       reorderable.item(nearest+1).style.marginTop = todrag.clientHeight + "px";
     else if(nearest >= 0 && nearest < reorderable.length)
       reorderable.item(nearest).style.marginTop = todrag.clientHeight + "px";
-    
-    console.log(nearest);
     
   });
 
@@ -58,8 +58,10 @@ var Reorderable = function(container, values) {
     // add handle
     elem.innerHTML = "<div class='handle'></div>" + elem.innerHTML;
 
-    // on click (mousedown, mouseup doesn't seem to work)
-    elem.addEventListener("click", function() {
+    // on drag handler
+    var dragHandler = function(event) {
+
+      // only on .handle element
       if(event.target != this.children[0] || (todrag && todrag != this)) return;
 
       // if newly dragged, set styles
@@ -86,13 +88,18 @@ var Reorderable = function(container, values) {
         this.classList.remove("dragged");
         this.style.top = "auto";
       }
-    });
+    };
+
+    // allow dragging
+    elem.addEventListener("mousedown", dragHandler);
+    elem.addEventListener("mouseup", dragHandler);
+
   }
 
   // if click outside the box while drag, cancel dragging
-  document.addEventListener("click", function(event) {
+  document.addEventListener("mouseup", function(event) {
     if(todrag && Array.from(document.getElementsByClassName("handle")).indexOf(event.target) == -1)
-      todrag.children[0].dispatchEvent(new Event("click", { bubbles: true }));
+      todrag.children[0].dispatchEvent(new Event("mouseup", { bubbles: true }));
   });
 
   // public instance method toArray(). Returns list of values as array
