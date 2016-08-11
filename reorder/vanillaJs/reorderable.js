@@ -25,6 +25,9 @@ var Reorderable = function(container, values) {
     return y < container.offsetTop ? 0 : y > container.offsetTop + container.clientHeight ? container.clientHeight : y - container.offsetTop;
   };
 
+  // set container to fixed height:
+  container.style.height = container.clientHeight + "px";
+
   // mousemove acts when dragged item
   document.body.addEventListener("mousemove", function(event) {
     if(!todrag) return;
