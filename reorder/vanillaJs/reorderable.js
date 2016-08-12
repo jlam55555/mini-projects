@@ -15,15 +15,25 @@ var Reorderable = function(container, values) {
   // locked holds hidden or not. Default false
   var locked = false;
 
+  // gets true offsetTop (from document, not just containing parent)
+  var getOffsetTop = function(elem) {
+    var offset = 0;
+    do {
+      if(!isNaN(elem.offsetTop))
+        offset += elem.offsetTop;
+    } while(elem = elem.offsetParent);
+    return offset;
+  };
+
   // gets nearest element (finds mouse percentage of total height and multiplies it by the number of elements
   var y = 0;
   var getNearest = function() {
-    return Math.round((y - container.offsetTop) / container.clientHeight * reorderable.length);
+    return Math.round((y - getOffsetTop(container)) / container.clientHeight * reorderable.length);
   };
 
   // gets Y coordinate in the reorderable box -- deals with cases of mouse over the top or under bottom
   var getYCoor = function(y) {
-    return y < container.offsetTop ? 0 : y > container.offsetTop + container.clientHeight ? container.clientHeight : y - container.offsetTop;
+    return y < getOffsetTop(container) ? 0 : y > getOffsetTop(container) + container.clientHeight ? container.clientHeight : y - getOffsetTop(container);
   };
 
   // set container to fixed height:
