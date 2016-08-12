@@ -44,17 +44,19 @@
         }
       });
 
-      // populate list (ice cream again) with default values and lock it
+      // populate list (ice cream again) with default values.
       var list = new Reorderable(
         document.getElementById("list"),
         ["Chocolate", "Vanilla", "Strawberry", "Caramel", "Blueberry", "Cookies and Dough", "Cotton Candy", "Rocky Road", "Coconut", "Pistaschio"]
-      ); 
+      );
+      // Make sure to lock it first.
       list.lock();
 
       // function called by button below the script
       function edit() {
         // edit the root element and reinitialize the modal with it
         var root = document.createElement("div");
+        // editDiv cannot be the root element; this will mess up the positioning within. Instead, contain it in another div
         var editDiv = document.createElement("div");
         editDiv.classList.add("reorderable");
         editDiv.id = "editList";
