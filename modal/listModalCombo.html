@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Example mini-project combo usage</title>
+
+    <!-- include script files -->
+    <script src="modal.js"></script>
+    <script src="../reorder/vanillaJs/reorderable.js"></script>
+    <script src="https://use.fontawesome.com/a46f002d02.js"></script>
+
+    <!-- include styles -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../reorder/vanillaJs/style.css">
+
+    <!-- internal CSS (special styling) -->
+    <style>
+      #editList {
+        width: 100%;
+      }
+      #list.locked > div {
+        margin-left: 0;
+      }
+    </style>
+
+  </head>
+  <body>
+    <h1>Example usage of <code>Modal</code> with <code>Reorderable</code> (VanillaJS)</h1>
+    <p>See the list. Press the "Edit" button to open the modal with the reorderable elements. Press "Ok" to save, "Cancel" to cancel the edit action.</p>
+    <hr>
+    <div id="modal"></div>
+    <div id="list" class="reorderable"></div>
+    <script>
+      // stores editList reorderable object
+      var editList;
+
+      // create modal element
+      // note the lack of a cancelCallback -- if not specified, then defaults to an empty function
+      var modal = new ConfirmModal(document.getElementById("modal"), 500, 500, function() {
+        // check if different; if so, change the one on the page
+        if(list.toArray().join(" ") != editList.toArray().join(" ")) {
+          // as of right now, the only method to "refresh" a list is to clear and reinitialize it
+          document.getElementById("list").innerHTML = "";
+          list = new Reorderable(document.getElementById("list"), editList.toArray());
+        }
+      });
+
+      // populate list (ice cream again) with default values and lock it
+      var list = new Reorderable(
+        document.getElementById("list"),
+        ["Chocolate", "Vanilla", "Strawberry", "Caramel", "Blueberry", "Cookies and Dough", "Cotton Candy", "Rocky Road", "Coconut", "Pistaschio"]
+      ); 
+      list.lock();
+
+      // function called by button below the script
+      function edit() {
+        var root = document.createElement("div");
+        var editDiv = document.createElement("div");
+        editDiv.classList.add("reorderable");
+        editDiv.id = "editList";
+        root.appendChild(editDiv);
+        modal.init(root);
+        modal.show();
+        editList = new Reorderable(document.getElementById("editList"), list.toArray());
+      };
+    </script>
+    <button onclick="edit()">Edit</button>
+  </body>
+</html>
