@@ -14,6 +14,15 @@ var Modal = function(root, width, height, onclose) {
   var c = onclose || function(){};
   var modalCover;
 
+  // private function to create menu and buttons; can be changed for subclasses
+  var createButtons = function(context, menu) {
+    var closeButton = document.createElement("button");
+    closeButton.appendChild(document.createTextNode("Close"));
+    closeButton.classList.add("modalCloseButton");
+    closeButton.addEventListener("click", context.hide );
+    menu.appendChild(closeButton);
+  };
+
   /**
    * Creates a modal object
    * @param element: An HTML node to be made into a modal
@@ -36,12 +45,7 @@ var Modal = function(root, width, height, onclose) {
     var modalMenu = document.createElement("div");
     modalMenu.classList.add("modalMenu");
     r.appendChild(modalMenu);
-    var closeButton = document.createElement("button");
-    closeButton.appendChild(document.createTextNode("Close"));
-    closeButton.classList.add("modalCloseButton");
-    var thisContext = this;
-    closeButton.addEventListener("click", function() { thisContext.hide(); });
-    modalMenu.appendChild(closeButton);
+    createButtons(this, modalMenu);
   };
 
   /**
