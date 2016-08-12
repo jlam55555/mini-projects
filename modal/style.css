@@ -1,4 +1,4 @@
-.modalCover, .modal, .modalMenu, .modalCloseButton {
+.modalCover, .modal, .modalMenu, .modalMenuButton {
   box-sizing: border-box;
 }
 .modalCover {
@@ -26,9 +26,10 @@
   background-color: black;
   height: 40px;
   cursor: pointer;
+  padding: 10px;
 }
-.modalCover > .modal > .modalMenu > .modalCloseButton {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+.modalCover > .modal > .modalMenu > .modalMenuButton {
+  float: right;
+  height: 20px;
+  margin-left: 5px;
 }

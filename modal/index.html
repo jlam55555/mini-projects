@@ -6,12 +6,24 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <div id="modal">TESTING</div>
+    <h1><code>Modal</code> project (VanillaJS)</h1>
+    <p>Here a <code>Modal</code> and <code>ConfirmModal</code> are implemented. Simply input an element and call <code>show()</code> to show them! Callback functions on close make them more useful. See the code for more details.</p>
+    <hr>
+    <div id="modal">This is a regular modal.</div>
+    <div id="confirmModal">This is a confirm modal.</div>
     <script>
-      (modal = new Modal(document.getElementById("modal"), 500, 500, function() {
-        alert("Callback function called!");
-      })).show();
+      // create regular modal
+      var modal = new Modal(document.getElementById("modal"), 500, 500, function() {
+        alert("Close callback function called!");
+      });
+      // create confirm modal
+      var confirmModal = new ConfirmModal(document.getElementById("confirmModal"), 500, 500, function() {
+        alert("Confirm callback function called!");
+      }, function() {
+        alert("Cancel callback function called!");
+      });
     </script>
     <button onclick="modal.show()">modal.show()</button>
+    <button onclick="confirmModal.show()">confirmModal.show()</button>
   </body>
 </html>
