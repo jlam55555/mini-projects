@@ -50,6 +50,24 @@ var Modal = function(root, width, height, onclose) {
     modalMenu.classList.add("modalMenu");
     this.r.appendChild(modalMenu);
     this.createButtons(this, modalMenu);
+
+    // make modal draggable
+    var posX, posY, dragging = false, thisContext = this, dragListener = function(event) {
+      if(!dragging)
+        return;
+      thisContext.r.style.left = event.pageX - posX + "px";
+      thisContext.r.style.top = event.pageY - posY + "px";
+    };
+    modalMenu.addEventListener("mousedown", function(event) {
+      posX = event.pageX - thisContext.r.style.left.slice(0, -2);
+      posY = event.pageY - thisContext.r.style.top.slice(0, -2);
+      dragging = true;
+      document.addEventListener("mousemove", dragListener);
+    });
+    modalMenu.addEventListener("mouseup", function(event) {
+      dragging = false;
+      document.removeEventListener("mousemove", dragListener);
+    });
   };
 
   /**
