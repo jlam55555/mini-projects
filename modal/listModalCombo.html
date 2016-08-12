@@ -36,9 +36,9 @@
       // create modal element
       // note the lack of a cancelCallback -- if not specified, then defaults to an empty function
       var modal = new ConfirmModal(document.getElementById("modal"), 500, 500, function() {
-        // check if different; if so, change the one on the page
-        if(list.toArray().join(" ") != editList.toArray().join(" ")) {
-          // as of right now, the only method to "refresh" a list is to clear and reinitialize it
+        // check if different by turning them into strings and comparing them; if so, change the one on the page
+        if(JSON.stringify(list.toArray()) != JSON.stringify(editList.toArray())) {
+          // the way to "refresh" a list is to clear and reinitialize it
           document.getElementById("list").innerHTML = "";
           list = new Reorderable(document.getElementById("list"), editList.toArray());
         }
@@ -53,6 +53,7 @@
 
       // function called by button below the script
       function edit() {
+        // edit the root element and reinitialize the modal with it
         var root = document.createElement("div");
         var editDiv = document.createElement("div");
         editDiv.classList.add("reorderable");
@@ -60,7 +61,9 @@
         root.appendChild(editDiv);
         modal.init(root);
         modal.show();
-        editList = new Reorderable(document.getElementById("editList"), list.toArray());
+
+        // initialize the list; notice that this has to be done to a visible element (so loading it before modal was added to the DOM wouldn't work)
+        editList = new Reorderable(editDiv, list.toArray());
       };
     </script>
     <button onclick="edit()">Edit</button>
