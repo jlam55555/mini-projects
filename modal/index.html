@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Popup Window</title>
+    <script src="modal.js"></script>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div id="modal">TESTING</div>
+    <script>
+      (modal = new Modal(document.getElementById("modal"), 500, 500, function() {
+        alert("Callback function called!");
+      })).show();
+    </script>
+    <button onclick="modal.show()">modal.show()</button>
+  </body>
+</html>
